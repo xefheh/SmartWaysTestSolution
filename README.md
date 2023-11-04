@@ -22,7 +22,7 @@ localhost:5050 - pgadmin4
   "surname": "string",
   "phone": "string",
   "companyId": 0,
-  "passportNumber": 0,
+  "passportNumber": "string",
   "departmentName": "string"
 }
 ```
@@ -35,7 +35,7 @@ localhost:5050 - pgadmin4
   "surname": "string",
   "phone": "string",
   "companyId": 0,
-  "passportNumber": 0,
+  "passportNumber": "string",
   "departmentName": "string"
 }
 ```
