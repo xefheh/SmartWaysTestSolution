@@ -1,0 +1,44 @@
+﻿services:
+  smartwaystestsolution.api:
+    image: smartwaystestsolution.api
+    build:
+      context: .
+      dockerfile: SmartWaysTestSolution.API/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on: 
+      - postgres.database
+    networks:
+      - mynetwork
+    environment:
+      ConnectionStrings__DefaultConnection: Host=postgres.database;Database=employees;Username=postgres;Password=123
+      
+  postgres.database:
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=employees
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./SmartWaysTestSolution.API/TestInitSQL/init_database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mynetwork
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres.database
+    networks:
+      - mynetwork
+    
+networks:
+  mynetwork:
